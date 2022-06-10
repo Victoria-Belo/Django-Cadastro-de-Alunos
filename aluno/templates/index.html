@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap4 %}
+<html lang="pt-br">
+<head>
+  <title>CADASTRO  ✫  HOME </title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+      <div class="jumbotron text-center" style="background-color:#1b0000; color:#dbdadb;">
+        <h1>CADASTRO DE ALUNOS</h1>
+        <p>Sistema de registro de dados</p>
+      </div>
+      {% bootstrap_messages %}
+
+      <div class="container p-3 my-3  text-white">
+         <div class="row">
+             <div class="col-sm-4">
+                <p></p>
+                <form class="form-inline" action=" " method="post" >
+                 {% csrf_token %}
+                 <p>
+                    <h6 style="float: left; margin:5px;">MATRICULA </h6>
+                    {% bootstrap_field form.matricula id='matricula' %}<br>
+                </p>
+                <p>
+                    <h6 style="float: left; margin:5px;">NOME</h6>
+                    {% bootstrap_field form.nome id='nome' %}<br>
+                </p>
+                <p>
+                    <h6 style="float: left; margin:5px;">CPF</h6>
+                    {% bootstrap_field form.cpf id='cpf' %}<br>
+                </p>
+                <p>
+                    <h6 style="float: left; margin:5px;">EMAIL</h6>
+                    {% bootstrap_field form.email id='email' %}<br>
+                </p>
+                <p>
+                    <h6 style="float: left; margin:5px;">TELEFONE</h6>
+                    {% bootstrap_field form.telefone id='telefone' %}</p>
+
+                    <br><button type="submit" class="btn btn-primary" style=
+                        "position:absolute;
+                        width:30%;
+                        height:12%;
+                        right:200px;
+                        top:250px;
+                        left:-70px;
+                        z-index:2;">CADASTRAR</button>
+                    <br><button type="submit" class="btn btn-primary" onclick="Editar()"
+                        style="position:absolute;
+                        width:25%;
+                        height:12%;
+                        right:200px;
+                        top:250px;
+                        left:50px;
+                        z-index:2;">EDITAR</button>
+                     <br><button type="submit" class="btn btn-primary" onclick="Excluir()"
+                        style= "position:absolute;
+                        width:25%;
+                        height:12%;
+                        right:200px;
+                        top:250px;
+                        left:150px;
+                        z-index:2;">EXCLUIR</button>
+                  </p>
+                </form>
+                <button type="submit" class="btn btn-primary" id="clear" onclick="Limpar()"
+                        style="position:absolute;
+                        width:25%;
+                        height:12%;
+                        right:200px;
+                        top:250px;
+                        left:250px;
+                        z-index:2;">LIMPAR</button>
+             </div>
+             <div class="row" style="position:absolute; top:240px; width:50% ; height:48%; border-style: groove; right:15px;">
+
+                 <div class="col-sm-4">
+                     <table class="table table-bordered" style="margin-top:30px; margin-left:10%;">
+                        <thead>
+                           <tr>
+                             <th>Matricula</th>
+                             <th>CPF</th>
+                             <th>Nome</th>
+                             <th>Email</th>
+                             <th>Telefone</th>
+                           </tr>
+                        </thead>
+                         {% for aluno in lista_aluno %}
+                        <tbody>
+                          <tr>
+                            <td> {{ aluno.matricula }} </td>
+                            <td> {{ aluno.cpf }} </td>
+                            <td> {{ aluno.nome }} </td>
+                            <td> {{ aluno.email }} </td>
+                            <td> {{ aluno.telefone }} </td>
+                          </tr>
+                        </tbody>
+                         {% empty %}
+                          <div class="alert alert-warning" style="position:absolute; width:290%; left:20px; top:60px;">
+                            <strong> Não há nenhum campo registrado! </strong>
+                          </div>
+                         {% endfor %}
+                     </table>
+                     <center>
+                         {% if users.has_other_pages %}
+                              <ul class="pagination" style="position:fixed; top:500px; right:400px;">
+                                {% if users.has_previous %}
+                                  <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                  <li class="disabled"><span>&laquo;</span></li>
+                                {% endif %}
+                                {% for i in users.paginator.page_range %}
+                                  {% if users.number == i %}
+                                    <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                                  {% else %}
+                                    <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                  {% endif %}
+                                {% endfor %}
+                                {% if users.has_next %}
+                                  <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                  <li class="disabled"><span>&raquo;</span></li>
+                                {% endif %}
+                              </ul>
+                        {% endif %}
+                     </center>
+                 </div>
+             </div>
+        </div>
+     </div>
+    <div class="jumbotron text-center" style="position:absolute; width:100%; height:20%; top:575px; left:0px; margin-bottom:0; background-color:#1b0000; color:#dbdadb;">
+      <p>victória✫2022</p>
+    </div>
+</body>
+<script>
+    function Limpar(){
+       var matricula = Number(document.getElementById('matricula').value = null)
+       var cpf = Number(document.getElementById('cpf').value = null)
+       var nome = String(document.getElementById('nome').value = '')
+       var email = String(document.getElementById('email').value = '')
+       var telefone = Number(document.getElementById('telefone').value = null)
+        <!--       console.log(matricula, cpf, nome, email, telefone)-->
+    }
+
+</script>
+</html>
