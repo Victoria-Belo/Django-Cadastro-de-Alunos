@@ -1,5 +1,5 @@
 # Sistema_CadastroAlunos
-Sistema de cadastramento de Alunos
+Sistema de cadastro de Alunos
 
 ➔ OBJETIVO: Aplicação desenvolvida para treinar minhas habilidades em Python. Foi utilizado Python + Django + Bootstrap + SQLite 
 
