@@ -6,6 +6,10 @@ from aluno.models import *
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+/*
+*Victória Belo
+*
+*/
 
 def index(request):
     form = alunoForm(request.POST or None)
